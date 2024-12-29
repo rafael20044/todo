@@ -1,5 +1,5 @@
 CREATE TABLE tareas (
-    id BIGINT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     usuario_id INTEGER REFERENCES usuarios(id),
     titulo VARCHAR(255) NOT NULL,
     descripcion TEXT,
