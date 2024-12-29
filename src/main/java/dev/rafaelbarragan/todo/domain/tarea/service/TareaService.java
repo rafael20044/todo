@@ -2,13 +2,14 @@ package dev.rafaelbarragan.todo.domain.tarea.service;
 
 import dev.rafaelbarragan.todo.domain.etiqueta.entity.Etiqueta;
 import dev.rafaelbarragan.todo.domain.etiqueta.service.EtiquetaService;
-import dev.rafaelbarragan.todo.domain.tarea.dto.TareaCrear;
-import dev.rafaelbarragan.todo.domain.tarea.dto.TareaRespuesta;
+import dev.rafaelbarragan.todo.domain.tarea.dto.*;
 import dev.rafaelbarragan.todo.domain.tarea.entity.Tarea;
 import dev.rafaelbarragan.todo.domain.tarea.repository.TareaRepository;
 import dev.rafaelbarragan.todo.domain.usuario.entity.Usuario;
 import dev.rafaelbarragan.todo.domain.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,5 +36,36 @@ public class TareaService implements ITareaService{
         usuarioService.agregarTarea(tarea, usuario);
         repository.save(tarea);
         return new TareaRespuesta(tarea);
+    }
+
+    @Override
+    public TareaBuscar buscar(Long id) {
+        Tarea tarea = buscarEntidad(id);
+        return new TareaBuscar(tarea);
+    }
+
+    @Override
+    public Page<TareaPage> buscarTodos(Pageable pageable) {
+        return repository.findAll(pageable).map(TareaPage::new);
+    }
+
+    @Override
+    public TareaRespuesta editar(TareaEditar editar) {
+        Tarea tarea = buscarEntidad(editar.id());
+        List<Etiqueta> etiquetas = etiquetaService.bsucarEtiquetas(editar.etiquetas());
+        tarea.editar(editar, etiquetas);
+        repository.save(tarea);
+        return new TareaRespuesta(tarea);
+    }
+
+    @Override
+    public Tarea buscarEntidad(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("Usuario no existente"));
+    }
+
+    @Override
+    public String borraPerma(Long id) {
+        repository.deleteById(id);
+        return "La tarea con el id " + id + " fue eliminada de manera permanente";
     }
 }

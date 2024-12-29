@@ -2,6 +2,7 @@ package dev.rafaelbarragan.todo.domain.tarea.entity;
 
 import dev.rafaelbarragan.todo.domain.etiqueta.entity.Etiqueta;
 import dev.rafaelbarragan.todo.domain.tarea.dto.TareaCrear;
+import dev.rafaelbarragan.todo.domain.tarea.dto.TareaEditar;
 import dev.rafaelbarragan.todo.domain.usuario.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -55,6 +56,19 @@ public class Tarea {
             this.fechaVencimiento = LocalDateTime.now().plusDays(crear.dia_limite());
         }
         this.completada = false;
+        this.etiquetas = etiquetas;
+    }
+
+    public void editar(TareaEditar editar, List<Etiqueta> etiquetas){
+        if(editar.titulo() != null){
+            this.titulo = editar.titulo();
+        }
+        if(editar.descripcion() != null){
+            this.descripcion = editar.descripcion();
+        }
+        if(editar.dia_vencimiento() != null){
+            this.fechaVencimiento = LocalDateTime.now().plusDays(editar.dia_vencimiento());
+        }
         this.etiquetas = etiquetas;
     }
 }

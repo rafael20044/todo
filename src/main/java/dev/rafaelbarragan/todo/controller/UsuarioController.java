@@ -6,7 +6,6 @@ import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioPage;
 import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioRespuesta;
 import dev.rafaelbarragan.todo.domain.usuario.service.UsuarioService;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

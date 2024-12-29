@@ -33,7 +33,7 @@ public class Usuario {
 
     private LocalDateTime fechaCreacion;
 
-    @OneToMany(mappedBy = "creador")
+    @OneToMany(mappedBy = "creador", cascade = CascadeType.ALL)
     private List<Tarea> tareas;
 
     public Usuario(UsuarioCrear crear, String pass) {
