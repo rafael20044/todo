@@ -1,12 +1,12 @@
 package dev.rafaelbarragan.todo.domain.usuario.service;
 
 import dev.rafaelbarragan.todo.domain.tarea.entity.Tarea;
-import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioBuscar;
-import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioCrear;
-import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioRespuesta;
+import dev.rafaelbarragan.todo.domain.usuario.dto.*;
 import dev.rafaelbarragan.todo.domain.usuario.entity.Usuario;
 import dev.rafaelbarragan.todo.domain.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +52,24 @@ public class UsuarioService implements IUsuarioService{
     public void agregarTarea(Tarea tarea, Usuario usuario) {
         usuario.agregarTarea(tarea);
         repository.save(usuario);
+    }
+
+    @Override
+    public Page<UsuarioPage> buscarTodos(Pageable pageable) {
+        return repository.findAll(pageable).map(UsuarioPage::new);
+    }
+
+    @Override
+    public UsuarioRespuesta editar(UsuarioEditar editar) {
+        Usuario usuario = buscarEntidad(editar.id());
+        String pass = editar.contrasena() != null ? bCryptPasswordEncoder.encode(editar.contrasena()) : null;
+        usuario.editar(editar, pass);
+        repository.save(usuario);
+        return new UsuarioRespuesta(usuario);
+    }
+
+    @Override
+    public void eliminarPermanente(Long id) {
+        repository.deleteById(id);
     }
 }

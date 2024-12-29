@@ -2,6 +2,7 @@ package dev.rafaelbarragan.todo.domain.usuario.entity;
 
 import dev.rafaelbarragan.todo.domain.tarea.entity.Tarea;
 import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioCrear;
+import dev.rafaelbarragan.todo.domain.usuario.dto.UsuarioEditar;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,5 +46,17 @@ public class Usuario {
 
     public void agregarTarea(Tarea tarea){
         this.tareas.add(tarea);
+    }
+
+    public void editar(UsuarioEditar editar, String pass){
+        if (editar.nombre() != null) {
+            this.nombre = editar.nombre();
+        }
+        if (editar.correo() != null) {
+            this.correo = editar.correo();
+        }
+        if (pass != null) {
+            this.contrasena = pass;
+        }
     }
 }

@@ -8,11 +8,10 @@ public record UsuarioRespuesta(
 
         String nombre,
 
-        String correo,
+        String correo
 
-        String contrasena
 ) {
     public UsuarioRespuesta(Usuario usuario) {
-        this(usuario.getId(), usuario.getNombre(), usuario.getCorreo(), usuario.getContrasena());
+        this(usuario.getId(), usuario.getNombre(), usuario.getCorreo());
     }
 }
