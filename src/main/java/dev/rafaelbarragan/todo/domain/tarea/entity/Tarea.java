@@ -46,7 +46,7 @@ public class Tarea {
     )
     private List<Etiqueta> etiquetas;
 
-    public Tarea(TareaCrear crear, Usuario usuario) {
+    public Tarea(TareaCrear crear, Usuario usuario, List<Etiqueta> etiquetas) {
         this.creador = usuario;
         this.titulo = crear.titulo();
         this.descripcion = crear.descripcion();
@@ -55,5 +55,6 @@ public class Tarea {
             this.fechaVencimiento = LocalDateTime.now().plusDays(crear.dia_limite());
         }
         this.completada = false;
+        this.etiquetas = etiquetas;
     }
 }

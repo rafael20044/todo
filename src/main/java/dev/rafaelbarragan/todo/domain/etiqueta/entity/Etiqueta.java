@@ -1,5 +1,6 @@
 package dev.rafaelbarragan.todo.domain.etiqueta.entity;
 
+import dev.rafaelbarragan.todo.domain.etiqueta.dto.EtiquetaCrear;
 import dev.rafaelbarragan.todo.domain.tarea.entity.Tarea;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.List;
 
 @Table(name = "etiquetas")
@@ -25,4 +27,9 @@ public class Etiqueta {
 
     @ManyToMany(mappedBy = "etiquetas")
     private List<Tarea> tareas;
+
+    public Etiqueta(EtiquetaCrear crear) {
+        this.nombre = crear.nombre();
+        this.tareas = Collections.emptyList();
+    }
 }
