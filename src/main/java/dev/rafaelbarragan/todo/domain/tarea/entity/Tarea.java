@@ -1,6 +1,7 @@
 package dev.rafaelbarragan.todo.domain.tarea.entity;
 
 import dev.rafaelbarragan.todo.domain.etiqueta.entity.Etiqueta;
+import dev.rafaelbarragan.todo.domain.tarea.dto.TareaCrear;
 import dev.rafaelbarragan.todo.domain.usuario.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,7 @@ public class Tarea {
 
     private LocalDateTime fechaVencimiento;
 
-    private boolean completado;
+    private boolean completada;
 
     @ManyToMany
     @JoinTable(
@@ -44,4 +45,15 @@ public class Tarea {
             inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
     )
     private List<Etiqueta> etiquetas;
+
+    public Tarea(TareaCrear crear, Usuario usuario) {
+        this.creador = usuario;
+        this.titulo = crear.titulo();
+        this.descripcion = crear.descripcion();
+        this.fechaCreacion = LocalDateTime.now();
+        if (crear.dia_limite() != null) {
+            this.fechaVencimiento = LocalDateTime.now().plusDays(crear.dia_limite());
+        }
+        this.completada = false;
+    }
 }

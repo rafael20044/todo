@@ -42,4 +42,8 @@ public class Usuario {
         this.fechaCreacion = LocalDateTime.now();
         this.tareas = Collections.emptyList();
     }
+
+    public void agregarTarea(Tarea tarea){
+        this.tareas.add(tarea);
+    }
 }
