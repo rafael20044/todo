@@ -6,6 +6,7 @@ import dev.rafaelbarragan.todo.domain.etiqueta.dto.EtiquetaEditar;
 import dev.rafaelbarragan.todo.domain.etiqueta.dto.EtiquetaRespuesta;
 import dev.rafaelbarragan.todo.domain.etiqueta.entity.Etiqueta;
 import dev.rafaelbarragan.todo.domain.etiqueta.repository.EtiquetaRepository;
+import dev.rafaelbarragan.todo.exception.NoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,8 +36,7 @@ public class EtiquetaService implements IEtiquetaService{
     public List<Etiqueta> bsucarEtiquetas(List<Long> etiquetas) {
         List<Etiqueta> etiquetas1 = new java.util.ArrayList<>(Collections.emptyList());
         for(Long id : etiquetas){
-            Etiqueta etiqueta = repository.findById(id).orElseThrow(() ->
-                    new RuntimeException("La etiqueta " + id + " no existe"));
+            Etiqueta etiqueta = buscarEntidad(id);
             etiquetas1.add(etiqueta);
         }
         return etiquetas1;
@@ -63,7 +63,7 @@ public class EtiquetaService implements IEtiquetaService{
 
     @Override
     public Etiqueta buscarEntidad(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Etiqueta no encontrada"));
+        return repository.findById(id).orElseThrow(() -> new NoEncontradoException("Etiqueta no encontrada"));
     }
 
     @Override

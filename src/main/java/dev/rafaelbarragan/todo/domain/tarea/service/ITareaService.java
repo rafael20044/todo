@@ -18,4 +18,6 @@ public interface ITareaService {
     Tarea buscarEntidad(Long id);
 
     String borraPerma(Long id);
+
+    TareaRespuesta terminar(Long id);
 }

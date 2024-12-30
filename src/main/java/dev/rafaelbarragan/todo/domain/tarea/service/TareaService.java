@@ -7,6 +7,7 @@ import dev.rafaelbarragan.todo.domain.tarea.entity.Tarea;
 import dev.rafaelbarragan.todo.domain.tarea.repository.TareaRepository;
 import dev.rafaelbarragan.todo.domain.usuario.entity.Usuario;
 import dev.rafaelbarragan.todo.domain.usuario.service.UsuarioService;
+import dev.rafaelbarragan.todo.exception.NoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,12 +61,19 @@ public class TareaService implements ITareaService{
 
     @Override
     public Tarea buscarEntidad(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Usuario no existente"));
+        return repository.findById(id).orElseThrow(() -> new NoEncontradoException("Tarea no existente"));
     }
 
     @Override
     public String borraPerma(Long id) {
         repository.deleteById(id);
         return "La tarea con el id " + id + " fue eliminada de manera permanente";
+    }
+
+    @Override
+    public TareaRespuesta terminar(Long id) {
+        Tarea tarea = buscarEntidad(id);
+        tarea.completar();
+        return new TareaRespuesta(tarea);
     }
 }

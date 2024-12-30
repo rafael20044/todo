@@ -25,7 +25,7 @@ public class Tarea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario creador;
 
@@ -70,5 +70,9 @@ public class Tarea {
             this.fechaVencimiento = LocalDateTime.now().plusDays(editar.dia_vencimiento());
         }
         this.etiquetas = etiquetas;
+    }
+
+    public void completar(){
+        this.completada = true;
     }
 }

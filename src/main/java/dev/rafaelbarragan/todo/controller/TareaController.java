@@ -59,4 +59,11 @@ public class TareaController {
         String mensaje = service.borraPerma(id);
         return ResponseEntity.ok(mensaje);
     }
+
+    @PutMapping("/terminar/{id}")
+    @Transactional
+    public ResponseEntity<TareaRespuesta> terminar(@PathVariable Long id){
+        TareaRespuesta respuesta = service.terminar(id);
+        return ResponseEntity.ok(respuesta);
+    }
 }
