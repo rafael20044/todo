@@ -1,6 +1,7 @@
 package dev.rafaelbarragan.todo.domain.etiqueta.entity;
 
 import dev.rafaelbarragan.todo.domain.etiqueta.dto.EtiquetaCrear;
+import dev.rafaelbarragan.todo.domain.etiqueta.dto.EtiquetaEditar;
 import dev.rafaelbarragan.todo.domain.tarea.entity.Tarea;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,11 @@ public class Etiqueta {
     public Etiqueta(EtiquetaCrear crear) {
         this.nombre = crear.nombre();
         this.tareas = Collections.emptyList();
+    }
+
+    public void editar(EtiquetaEditar editar){
+        if (editar.nombre() != null){
+            this.nombre = editar.nombre();
+        }
     }
 }
