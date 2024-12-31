@@ -5,6 +5,9 @@ import dev.rafaelbarragan.todo.domain.usuario.dto.*;
 import dev.rafaelbarragan.todo.domain.usuario.entity.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Optional;
 
 public interface IUsuarioService {
 
@@ -21,4 +24,6 @@ public interface IUsuarioService {
     UsuarioRespuesta editar(UsuarioEditar editar);
 
     void eliminarPermanente(Long id);
+
+    UserDetails buscarUser(String nombre);
 }

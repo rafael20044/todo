@@ -9,6 +9,7 @@ import dev.rafaelbarragan.todo.exception.NoEncontradoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,10 @@ public class UsuarioService implements IUsuarioService{
     @Override
     public void eliminarPermanente(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails buscarUser(String nombre) {
+        return repository.findByNombre(nombre).orElseThrow(() -> new NoEncontradoException("Usuario no existente"));
     }
 }
