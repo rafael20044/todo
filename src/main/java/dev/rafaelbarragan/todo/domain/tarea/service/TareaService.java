@@ -34,7 +34,6 @@ public class TareaService implements ITareaService{
         Usuario usuario = usuarioService.buscarEntidad(crear.creador());
         List<Etiqueta> etiquetas = etiquetaService.bsucarEtiquetas(crear.etiquetas_id());
         Tarea tarea = new Tarea(crear, usuario, etiquetas);
-        usuarioService.agregarTarea(tarea, usuario);
         repository.save(tarea);
         return new TareaRespuesta(tarea);
     }
