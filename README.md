@@ -33,8 +33,3 @@ spring.datasource.password=${DB_PASS}
 * `DB_PASS`: Contraseña correspondiente al usuario de la base de datos.
 * `SECRET`: Clave secreta utilizada para firmar y verificar los tokens JWT. Asegúrate de que esta clave sea suficientemente compleja y única.
 
-
-## Documentación
-
-[Documentación](https://rafaelbarragan.vercel.app/proyectos)
-
