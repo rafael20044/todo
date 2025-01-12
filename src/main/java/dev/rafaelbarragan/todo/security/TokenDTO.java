@@ -1,6 +1,7 @@
 package dev.rafaelbarragan.todo.security;
 
 public record TokenDTO(
-        String token
+        String token,
+        Long id
 ) {
 }

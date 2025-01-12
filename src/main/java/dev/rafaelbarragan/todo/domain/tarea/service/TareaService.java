@@ -13,6 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -48,6 +51,21 @@ public class TareaService implements ITareaService{
     public Page<TareaPage> buscarTodos(Pageable pageable) {
         return repository.findAll(pageable).map(TareaPage::new);
     }
+
+    @Override
+    public Page<TareaPage> buscarTodosHoy(Pageable pageable, Long id) {
+        // Obtener el usuario
+        Usuario creador = usuarioService.buscarEntidad(id);
+
+        // Calcular el inicio y fin del día de hoy
+        LocalDateTime inicioDelDia = LocalDateTime.of(LocalDate.now(), LocalTime.MIN); // 00:00:00
+        LocalDateTime finDelDia = LocalDateTime.of(LocalDate.now(), LocalTime.MAX); // 23:59:59
+
+        // Realizar la consulta y mapear los resultados a TareaPage
+        return repository.buscarTodasHoy(creador, inicioDelDia, finDelDia, pageable)
+                .map(TareaPage::new);
+    }
+
 
     @Override
     public TareaRespuesta editar(TareaEditar editar) {

@@ -46,6 +46,13 @@ public class TareaController {
         return ResponseEntity.ok(lista);
     }
 
+    @GetMapping("/hoy/{id}")
+    @Transactional
+    public ResponseEntity<Page<TareaPage>> buscarTodosHoy(Pageable pageable, @PathVariable Long id){
+        var lista = service.buscarTodosHoy(pageable, id);
+        return ResponseEntity.ok(lista);
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity<TareaRespuesta> editar(@RequestBody TareaEditar editar){

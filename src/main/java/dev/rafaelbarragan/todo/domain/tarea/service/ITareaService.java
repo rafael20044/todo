@@ -13,6 +13,8 @@ public interface ITareaService {
 
     Page<TareaPage> buscarTodos(Pageable pageable);
 
+    Page<TareaPage> buscarTodosHoy(Pageable pageable, Long id);
+
     TareaRespuesta editar(TareaEditar editar);
 
     Tarea buscarEntidad(Long id);
