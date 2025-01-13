@@ -91,6 +91,7 @@ public class TareaService implements ITareaService{
     public TareaRespuesta terminar(Long id) {
         Tarea tarea = buscarEntidad(id);
         tarea.completar();
+        repository.save(tarea);
         return new TareaRespuesta(tarea);
     }
 }

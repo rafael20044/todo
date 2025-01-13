@@ -73,6 +73,6 @@ public class Tarea {
     }
 
     public void completar(){
-        this.completada = true;
+        this.completada = !this.completada;
     }
 }
